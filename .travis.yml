@@ -3,6 +3,8 @@ go:
   - 1.12
 services:
   - postgres
+before_script:
+  - psql -c 'create database testing_db;' -U postgres
 script:
   - go get github.com/mattn/goveralls
   - make test
