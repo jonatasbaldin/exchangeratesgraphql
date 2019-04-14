@@ -26,7 +26,8 @@ func (e *Env) clearDB() {
 
 func (e *Env) run() {
 	r := gin.Default()
-	r.LoadHTMLGlob("static/*")
+	r.LoadHTMLGlob("templates/*")
+	r.Static("/static", "./static")
 
 	r.GET("/", rootHandler())
 	r.POST("/graphql", graphqlHandler(e))

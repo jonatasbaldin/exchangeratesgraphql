@@ -1,4 +1,9 @@
 # Exchange Rates GraphQL
+
+<p align="center">
+  <a href="https://exchangeratesgraphql.deployeveryday.com"><img src="static/logo.png"></a>
+</p>
+
 Exchange Rates GraphQL is a free service for current and historical foreign exchange rates [published by the European Central Bank](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html). _Inspired by [exchangeratesapi](https://github.com/exchangeratesapi/exchangeratesapi), inlcuding this description_.
 
 # Developing
