@@ -1,0 +1,6 @@
+.env
+.vscode
+.travis.yml
+Dockerfile
+README.md
+exchangeratesgraphql
