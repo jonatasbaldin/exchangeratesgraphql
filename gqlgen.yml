@@ -1,0 +1,23 @@
+# .gqlgen.yml example
+#
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+- schema.graphql
+exec:
+  filename: generated.go
+  package: main
+model:
+  filename: models_gen.go
+  package: main
+resolver:
+  filename: resolver.go
+  package: main
+  type: Resolver
+
+models:
+  Rate:
+    model: github.com/jonatasbaldin/exchangeratesgraphql.Rate
+  ExchangeRate:
+    model: github.com/jonatasbaldin/exchangeratesgraphql.ExchangeRate

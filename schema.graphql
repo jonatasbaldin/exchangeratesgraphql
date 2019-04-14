@@ -1,0 +1,17 @@
+type Rate {
+    symbol: String!
+    value: Decimal!
+}
+
+type ExchangeRate {
+    date: String!
+    rates: [Rate!]!
+}
+
+type Query {
+    latest(base: String, symbols: [String]): [Rate!]!
+    date(base: String, symbols: [String], date: String!): [Rate!]!
+    history(base: String, symbols: [String], startAt: String!, endAt:String!): [ExchangeRate!]!
+}
+
+scalar Decimal

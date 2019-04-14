@@ -1,0 +1,9 @@
+language: go
+go:
+  - 1.12
+services:
+  - postgres
+script:
+  - go get github.com/mattn/goveralls
+  - make test
+  - make coverage
