@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/99designs/gqlgen/handler"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -24,9 +26,18 @@ func (e *Env) clearDB() {
 
 func (e *Env) run() {
 	r := gin.Default()
+	r.LoadHTMLGlob("static/*")
+
+	r.GET("/", rootHandler())
 	r.POST("/graphql", graphqlHandler(e))
 	r.GET("/graphql/playground", playgroundHandler())
 	r.Run()
+}
+
+func rootHandler() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	}
 }
 
 func graphqlHandler(e *Env) gin.HandlerFunc {
