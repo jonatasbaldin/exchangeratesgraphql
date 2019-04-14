@@ -52,15 +52,15 @@ func main() {
 
 	flag.Parse()
 
-	e := InitializeProdEnv()
-	defer e.db.Close()
-
 	if len(os.Args) > 1 {
 		if flag.NFlag() != 1 {
 			fmt.Println("pass just one argument")
 			flag.Usage()
 			os.Exit(1)
 		}
+
+		e := InitializeProdEnv()
+		defer e.db.Close()
 
 		e.migrateDB()
 
