@@ -4,3 +4,5 @@
 Dockerfile
 README.md
 exchangeratesgraphql
+Makefile
+kubernetes/

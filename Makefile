@@ -3,9 +3,6 @@
 install-dependencies:
 	go get
 
-build-static: install-dependencies
-	go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o exchangeratesgraphql
-
 build: install-dependencies
 	go build -o exchangeratesgraphql
 	chmod +x exchangeratesgraphql

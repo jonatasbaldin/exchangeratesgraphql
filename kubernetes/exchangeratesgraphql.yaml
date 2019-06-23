@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: exchangeratesgraphql
+spec:
+  selector:
+    app: exchangeratesgraphql
+  ports:
+  - port: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exchangeratesgraphql
+  labels:
+    app: exchangeratesgraphql
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: exchangeratesgraphql
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+
+  template:
+    metadata:
+      labels:
+        app: exchangeratesgraphql
+
+    spec:
+      containers:
+      - name: exchangeratesgraphql
+        image: jonatasbaldin/exchangeratesgraphql:latest
+        ports:
+        - containerPort: 80
+
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 5
+          initialDelaySeconds: 3
+        
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: exchangeratesgraphql
+              key: database-url
+
+        - name: GIN_MODE
+          value: release
+
+        - name: PORT
+          value: "80"
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: exchangeratesgraphql-scrapper-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: exchangeratesgraphql-scraper-job
+        image: jonatasbaldin/exchangeratesgraphql:latest
+        command: ["/app/exchangeratesgraphql", "-scrape"]
+
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: exchangeratesgraphql
+              key: database-url
+
+      restartPolicy: Never

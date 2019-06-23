@@ -88,4 +88,4 @@ $ make test
 R: The source data on the European Central bank if for every working day, except TARGET closing days. Also, the rates are updated every hour.
 
 ## License
-[MIT](./LICENSE)
+[MIT](./LICENSE).

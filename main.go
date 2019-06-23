@@ -13,7 +13,7 @@ import (
 
 type Configuration struct {
 	DatabaseURL     string `envconfig:"DATABASE_URL" required:"true"`
-	TestDatabaseURL string `envconfig:"TEST_DATABASE_URL"`
+	TestDatabaseURL string `envconfig:"TEST_DATABASE_URL" default:""`
 }
 
 func InitializeTestEnv() *Env {
