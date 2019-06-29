@@ -71,23 +71,26 @@ spec:
 
 ---
 
-apiVersion: batch/v1
-kind: Job
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
   name: exchangeratesgraphql-scrapper-job
 spec:
-  template:
+  schedule: "0 10 * * *"
+  jobTemplate:
     spec:
-      containers:
-      - name: exchangeratesgraphql-scraper-job
-        image: jonatasbaldin/exchangeratesgraphql:latest
-        command: ["/app/exchangeratesgraphql", "-scrape"]
+      template:
+        spec:
+          containers:
+          - name: exchangeratesgraphql-scraper-job
+            image: jonatasbaldin/exchangeratesgraphql:latest
+            command: ["/app/exchangeratesgraphql", "-scrape"]
 
-        env:
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: exchangeratesgraphql
-              key: database-url
+            env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: exchangeratesgraphql
+                  key: database-url
 
-      restartPolicy: Never
+          restartPolicy: Never
